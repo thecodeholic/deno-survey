@@ -1,0 +1,24 @@
+### 
+
+POST http://localhost:8000/api/register HTTP/1.1
+content-type: application/json
+
+{
+    "name": "TheCodeholic",
+    "email": "test@freecodecamp.org",
+    "password": "test"
+}
+
+### 
+
+POST http://localhost:8000/api/login HTTP/1.1
+content-type: application/json
+
+{
+    "username": "test",
+    "password": "test"
+}
+
+###
+
+http://localhost:8000/api/survey
