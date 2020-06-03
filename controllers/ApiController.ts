@@ -8,16 +8,15 @@ export class ApiController {
   async register(ctx: RouterContext) {
     const { value: { name, email, password } } = await ctx.request.body();
 
-    let user = await User.findOne({email});
+    let user = await User.findOne({ email });
     if (user) {
       ctx.response.status = 422;
-      ctx.response.body = {message: 'Email is already used'};
+      ctx.response.body = { message: 'Email is already used' };
       return;
     }
     const hashedPassword = hashSync(password);
-    user = new User({name, email, password: hashedPassword});
-    const { $oid } = await userCollection.insertOne(user);
-    user.id = $oid;
+    user = new User({ name, email, password: hashedPassword });
+    await user.save();
     ctx.response.status = 201;
     ctx.response.body = user;
   }
