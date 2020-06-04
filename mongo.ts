@@ -7,3 +7,4 @@ const db = client.database("deno_survey_db");
 export default db;
 
 export const userCollection = db.collection("users");
+export const surveyCollection = db.collection("surveys");
