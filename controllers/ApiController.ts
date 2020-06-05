@@ -9,6 +9,7 @@ const header: Jose = {
 };
 export class ApiController {
   async register(ctx: RouterContext) {
+    
     const { value: { name, email, password } } = await ctx.request.body();
 
     let user = await User.findOne({ email });

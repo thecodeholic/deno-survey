@@ -5,13 +5,8 @@ import Survey from "../models/Survey.ts";
 export class QuestionController {
   async getBySurvey(ctx: RouterContext) {
     const surveyId: string = ctx.params.surveyId!;
-    const survey = await Survey.get(surveyId);
-    if (!survey) {
-      ctx.response.status = 404;
-      ctx.response.body = {message: 'Invalid Survey ID'};
-      return;
-    }
-    ctx.response.body = survey.getQuestions();
+    const questions = await Question.getBySurvey(surveyId);
+    ctx.response.body = questions;
   }
   
   getSingle(ctx: RouterContext) {
@@ -27,7 +22,8 @@ export class QuestionController {
       return;
     }
     const {value: {text, type, required, data}} = await ctx.request.body();
-    const question = await survey.addQuestion({text, type, required, data});
+    const question = new Question({text, type, required, data});
+    await question.create()
     ctx.response.status = 201;
     ctx.response.body = question;
   }
@@ -35,7 +31,7 @@ export class QuestionController {
   async update(ctx: RouterContext) {
     const id: string = ctx.params.id!;
     const {value: {text, type, required, data}} = await ctx.request.body();
-    const question: Question = await Question.get(id)
+    const question: Question | null = await Question.get(id)
     if (!question) {
       ctx.response.status = 404;
       ctx.response.body = {message: 'Invalid Question ID'};

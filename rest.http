@@ -68,7 +68,7 @@ Content-Type: application/json
 
 
 ### Update question
-POST http://localhost:8000/api/question/f3b535d3-a305-4485-93a8-78940e719cb6
+put http://localhost:8000/api/question/f3b535d3-a305-4485-93a8-78940e719cb6
 Content-Type: application/json
 
 {
