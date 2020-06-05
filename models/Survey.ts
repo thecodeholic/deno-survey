@@ -1,22 +1,20 @@
 import { surveyCollection } from "../mongo.ts";
 import Question from "./Question.ts";
+import BaseModel from "./BaseModel.ts";
 
 export default class Survey {
   public id = "";
   public name = "";
   public description = "";
-  public questions: Question[] = [];
 
   constructor({
     id = "",
     name = "",
     description = "",
-    questions = []
   }) {
       this.id = id;
       this.name = name;
       this.description = description;
-      this.questions = questions;
   }
   static async getAll() {
     const surveys = await surveyCollection.find();
@@ -24,6 +22,7 @@ export default class Survey {
   }
 
   public async create(){
+    delete this.id;
     const {$oid} = await surveyCollection.insertOne(this)
     this.id = $oid;
     return this;
@@ -53,24 +52,9 @@ export default class Survey {
     return surveyCollection.deleteOne({_id: {$oid: id}});
   }
 
-  public async addQuestion({text = '', type = '', required = false, data = {}}) {
-    const question = new Question({text, type, required, data});
-    this.questions.push(question)
-    const {modifiedCount} = await surveyCollection.updateOne({_id: {$oid: this.id}}, {
-      $set: {
-        questions: this.questions
-      }
-    });
-    return question;
-  }
-
-  public getQuestions() {
-    return this.questions;
-  }
-
-  private static prepare(survey: any) {
-    survey.id = survey._id.$oid;
-    delete survey._id;
-    return survey;
+  private static prepare(data: any) {
+    data.id = data._id.$oid;
+    delete data._id;
+    return data;
   }
 }

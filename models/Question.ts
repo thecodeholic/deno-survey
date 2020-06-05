@@ -4,13 +4,15 @@ import { surveyCollection, questionCollection } from "../mongo.ts";
 
 export default class Question {
   public id: string;
+  public surveyId: string;
   public text: string;
   public type: string;
   public required: boolean;
   public data: object;
 
-  constructor({ id = '', text = '', type = '', required = false, data = {} } = {}) {
+  constructor({ id = '', surveyId = '', text = '', type = '', required = false, data = {} } = {}) {
     this.id = id;
+    this.surveyId = surveyId;
     this.text = text;
     this.type = type;
     this.required = required;
@@ -22,21 +24,22 @@ export default class Question {
     if (!questions) {
       return [];
     }
-    return questions;
+    return questions.map((q: object) => new Question(Question.prepare(q)));
   }
 
   async create() {
+    delete this.id;
     const { $oid } = await questionCollection.insertOne(this)
     this.id = $oid;
     return this;
   }
 
   static async get(id: string) {
-    const question = await questionCollection.find({ _id: { $oid: id } });
+    const question = await questionCollection.findOne({ _id: { $oid: id } });
     if (!question) {
       return null;
     }
-    return new Question(question);
+    return new Question(Question.prepare(question));
   }
 
   public async update({ text = '', type = '', required = false, data = {}  }) {
@@ -44,9 +47,21 @@ export default class Question {
     this.type = type;
     this.required = required;
     this.data = data;
+    console.log(this.id);
     const { modifiedCount } = await questionCollection.updateOne({ _id: { $oid: this.id } }, {
-      $set: this
+      $set: {
+        text: this.text,
+        type: this.type,
+        required: this.required,
+        data: this.data,
+      }
     });
     return this;
+  }
+  
+  private static prepare(data: any) {
+    data.id = data._id.$oid;
+    delete data._id;
+    return data;
   }
 }

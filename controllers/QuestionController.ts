@@ -22,7 +22,7 @@ export class QuestionController {
       return;
     }
     const {value: {text, type, required, data}} = await ctx.request.body();
-    const question = new Question({text, type, required, data});
+    const question = new Question({surveyId, text, type, required, data});
     await question.create()
     ctx.response.status = 201;
     ctx.response.body = question;
