@@ -23,13 +23,6 @@ router
 
   // Survey Question CRUD
   .get('/api/survey/:surveyId/question', questionController.getBySurvey)
-  .get('/api/survey/:surveyId/question/:id', questionController.getSingle)
-  .post('/api/survey/:surveyId/question', questionController.create)
-  .put('/api/survey/:surveyId/question/:id', questionController.update)
-  .delete('/api/survey/:surveyId/question/:id', questionController.delete)
-
-  // Survey Question Shorter URLs
-  .get('/api/question/:surveyId', questionController.getBySurvey)
   .get('/api/question/:id', questionController.getSingle)
   .post('/api/question/:surveyId', questionController.create)
   .put('/api/question/:id', questionController.update)

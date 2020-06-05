@@ -46,3 +46,38 @@ GET http://localhost:8000/api/survey/5ed87aa8003d3fdb00e09332
 
 ### Delete the survey
 DELETE  http://localhost:8000/api/survey/5ed896bf0014ec2700a02fda
+
+
+### Get questions for survey
+GET http://localhost:8000/api/survey/5ed87aa8003d3fdb00e09332/question
+
+
+### Create question for survey
+POST http://localhost:8000/api/question/5ed87aa8003d3fdb00e09332
+Content-Type: application/json
+
+{
+  "text": "Do you want Deno with Typescript or Javascript",
+  "type": "choice",
+  "required": true,
+  "data": {
+    "multiple": false,
+    "answers": ["Typescript", "Javascript"]
+  }
+}
+
+
+### Update question
+POST http://localhost:8000/api/question/f3b535d3-a305-4485-93a8-78940e719cb6
+Content-Type: application/json
+
+{
+  "text": "Do you want Deno with Typescript or Javascript?",
+  "type": "choice",
+  "required": true,
+  "data": {
+    "multiple": false,
+    "answers": ["Typescript", "Javascript"]
+  }
+}
+
