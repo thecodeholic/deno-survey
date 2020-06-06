@@ -9,3 +9,4 @@ export default db;
 export const userCollection = db.collection("users");
 export const surveyCollection = db.collection("surveys");
 export const questionCollection = db.collection("questions");
+export const answerCollection = db.collection("answers");

@@ -41,7 +41,6 @@ export default class Survey {
 
   static async get(id: string) {
     const survey = await surveyCollection.findOne({ _id: { $oid: id } });
-    console.log(survey);
     if (!survey) {
       return null;
     }

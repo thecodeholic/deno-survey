@@ -2,3 +2,15 @@ body {
   padding: 50px;
   background-color: rgb(223, 223, 223);
 }
+
+.survey-card {
+  transition: all 0.3s;;
+}
+.survey-card a {
+  text-decoration: none;
+  color: #212529;
+}
+
+.survey-card:hover {
+  box-shadow: 0 0 0 4px var(--blue);
+}
