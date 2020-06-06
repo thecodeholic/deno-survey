@@ -27,14 +27,16 @@ content-type: application/json
 
 ### Get All Surveys
 GET http://localhost:8000/api/survey
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ0ZXN0QGZyZWVjb2RlY2FtcC5vcmciLCJleHAiOjE1OTE0MTkyNDkzNDR9.MRl_1aI50uwx1K7hO1rsq6nsDU7WoJWBvbVxT047EXE
 
 ### Create Survey
 POST http://localhost:8000/api/survey
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ0ZXN0QGZyZWVjb2RlY2FtcC5vcmciLCJleHAiOjE1OTE0MTkyNDkzNDR9.MRl_1aI50uwx1K7hO1rsq6nsDU7WoJWBvbVxT047EXE
 
 {
-  "name": "Javascript",
-  "description": "Javascript description"
+  "name": "Deno",
+  "description": "Deno description"
 }
 
 ### Update survey
@@ -66,16 +68,24 @@ GET http://localhost:8000/api/question/5edb0f87009ad01000fdb1bd
 ### Create question for survey
 POST http://localhost:8000/api/question/5edb0f14003c1c7700025b89
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ0ZXN0QGZyZWVjb2RlY2FtcC5vcmciLCJleHAiOjE1OTE0MTkyNDkzNDR9.MRl_1aI50uwx1K7hO1rsq6nsDU7WoJWBvbVxT047EXE
 
 {
-  "text": "Do you want Deno with Typescript or Javascript",
-  "type": "choice",
+  "text": "Write one feature you like most in Deno",
+  "type": "text",
   "required": true,
-  "data": {
-    "multiple": false,
-    "answers": ["Typescript", "Javascript"]
-  }
+  "data": {}
 }
+
+# {
+#   "text": "Do you want Deno with Typescript or Javascript",
+#   "type": "choice",
+#   "required": true,
+#   "data": {
+#     "multiple": false,
+#     "answers": ["Typescript", "Javascript"]
+#   }
+# }
 
 ### Update question
 put http://localhost:8000/api/question/5edb0f87009ad01000fdb1bd
