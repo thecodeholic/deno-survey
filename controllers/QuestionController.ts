@@ -5,12 +5,25 @@ import Survey from "../models/Survey.ts";
 export class QuestionController {
   async getBySurvey(ctx: RouterContext) {
     const surveyId: string = ctx.params.surveyId!;
+    const survey = await Survey.get(surveyId);
+    if (!survey) {
+      ctx.response.status = 404;
+      ctx.response.body = {message: 'Invalid Survey ID'};
+      return;
+    }
     const questions = await Question.getBySurvey(surveyId);
     ctx.response.body = questions;
   }
   
-  getSingle(ctx: RouterContext) {
-
+  async getSingle(ctx: RouterContext) {
+    const id: string = ctx.params.id!;
+    const question: Question | null = await Question.get(id);
+    if (!question) {
+      ctx.response.status = 404;
+      ctx.response.body = {message: 'Invalid Question ID'};
+      return;
+    }
+    ctx.response.body = question;
   }
 
   async create(ctx: RouterContext) {
@@ -41,8 +54,16 @@ export class QuestionController {
     ctx.response.body = question;
   }
 
-  delete(ctx: RouterContext) {
-
+  async delete(ctx: RouterContext) {
+    const id: string = ctx.params.id!;
+    const question: Question | null = await Question.get(id);
+    if (!question) {
+      ctx.response.status = 404;
+      ctx.response.body = {message: 'Invalid Question ID'};
+      return;
+    }
+    await question.delete();
+    ctx.response.status = 204;
   }
 }
 

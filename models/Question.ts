@@ -58,6 +58,11 @@ export default class Question {
     });
     return this;
   }
+
+  
+  async delete() {
+    return questionCollection.deleteOne({_id: {$oid: this.id}});
+  }
   
   private static prepare(data: any) {
     data.id = data._id.$oid;

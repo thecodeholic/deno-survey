@@ -1,4 +1,4 @@
-### 
+### Register
 
 POST http://localhost:8000/api/register HTTP/1.1
 content-type: application/json
@@ -9,7 +9,7 @@ content-type: application/json
     "password": "test"
 }
 
-### 
+### Login
 
 POST http://localhost:8000/api/login HTTP/1.1
 content-type: application/json
@@ -19,6 +19,12 @@ content-type: application/json
     "password": "test"
 }
 
+
+###############################################
+### SURVEYS
+###############################################
+
+
 ### Get All Surveys
 GET http://localhost:8000/api/survey
 
@@ -27,33 +33,38 @@ POST http://localhost:8000/api/survey
 Content-Type: application/json
 
 {
-  "name": "NodeJs",
-  "description": "NodeJs description"
+  "name": "Javascript",
+  "description": "Javascript description"
 }
 
 ### Update survey
-PUT http://localhost:8000/api/survey/5edaa687000b7758001f89c2
+PUT http://localhost:8000/api/survey/5edb0ef000c8493f00025b88
 Content-Type: application/json
 
 {
-  "name": "PHP",
-  "description": "PHP description"
+  "name": "5edb0ef000c8493f00025b88",
+  "description": "5edb0ef000c8493f00025b88 long description"
 }
 
 ### Get Single Survey
-GET http://localhost:8000/api/survey/5edaa63d00006b8f009992c6
+GET http://localhost:8000/api/survey/5edb0ef000c8493f00025b88
 
 
 ### Delete the survey
-DELETE  http://localhost:8000/api/survey/5edaa63d00006b8f009992c6
+DELETE  http://localhost:8000/api/survey/5edb0ef000c8493f00025b88
 
+###############################################
+### QUESIONS
+###############################################
 
 ### Get questions for survey
-GET http://localhost:8000/api/survey/5ed87aa8003d3fdb00e09332/question
+GET http://localhost:8000/api/survey/5edb0f14003c1c7700025b89/question
 
+### Get Single Question
+GET http://localhost:8000/api/question/5edb0f87009ad01000fdb1bd
 
 ### Create question for survey
-POST http://localhost:8000/api/question/5edaa6b200e3768e001f89c3
+POST http://localhost:8000/api/question/5edb0f14003c1c7700025b89
 Content-Type: application/json
 
 {
@@ -66,9 +77,8 @@ Content-Type: application/json
   }
 }
 
-
 ### Update question
-put http://localhost:8000/api/question/5edaa717005e220b001f89c4
+put http://localhost:8000/api/question/5edb0f87009ad01000fdb1bd
 Content-Type: application/json
 
 {
@@ -77,7 +87,9 @@ Content-Type: application/json
   "required": true,
   "data": {
     "multiple": false,
-    "answers": ["Typescript", "Javascript"]
+    "answers": ["Typescript", "Javascript", "I don't want Deno"]
   }
 }
 
+### Get Single Question
+DELETE http://localhost:8000/api/question/5edb0f87009ad01000fdb1bd

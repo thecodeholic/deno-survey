@@ -48,8 +48,8 @@ export default class Survey {
     return new Survey(Survey.prepare(survey))
   }
 
-  static async delete(id: string) {
-    return surveyCollection.deleteOne({_id: {$oid: id}});
+  async delete() {
+    return surveyCollection.deleteOne({_id: {$oid: this.id}});
   }
 
   private static prepare(data: any) {

@@ -44,7 +44,13 @@ export class SurveyController {
 
   async delete(ctx: RouterContext) { 
     const id: string = ctx.params.id!;
-    await Survey.delete(id)
+    const survey = await Survey.get(id);
+    if (!survey ) {
+      ctx.response.status = 404;
+      ctx.response.body = {message: 'Invalid id'};
+      return;
+    }
+    await survey.delete()
     ctx.response.status = 204;
     ctx.response.body = '';
   }
