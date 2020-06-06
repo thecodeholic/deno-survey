@@ -39,10 +39,16 @@ export class SiteController {
     const questions: Question[] = await Question.getBySurvey(id);
     const answers: any = {};
     const errors: any = {};
+    console.log(formData);
     for (const question of questions) {
-      const value = formData.get(question.id);
-      if (question.required && !value) {
-        errors[question.id] = "This field is required";
+      let value = formData.get(question.id);
+      if (question.type === 'choice' && question.data.multiple === true) {
+        value = formData.getAll(question.id);
+      }
+      if (question.required) {
+        if (question.type === 'choice' && question.data.multiple && !value.length || (!value)){
+          errors[question.id] = "This field is required";
+        }
       }
       answers[question.id] = value;
     }

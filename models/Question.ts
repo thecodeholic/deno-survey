@@ -8,7 +8,7 @@ export default class Question {
   public text: string;
   public type: string;
   public required: boolean;
-  public data: object;
+  public data: any;
 
   constructor({ id = '', surveyId = '', text = '', type = '', required = false, data = {} } = {}) {
     this.id = id;

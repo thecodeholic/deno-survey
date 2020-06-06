@@ -19,6 +19,8 @@ content-type: application/json
     "password": "test"
 }
 
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ0ZXN0QGZyZWVjb2RlY2FtcC5vcmciLCJleHAiOjE1OTE0Mjc3MjUyNDR9.0CNrvcTZMJgUM8OHy0r9BxiEvJzGhuDcTAJtNojX9yw
+
 
 ###############################################
 ### SURVEYS
@@ -27,21 +29,22 @@ content-type: application/json
 
 ### Get All Surveys
 GET http://localhost:8000/api/survey
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ0ZXN0QGZyZWVjb2RlY2FtcC5vcmciLCJleHAiOjE1OTE0MjI5MzA1Mzd9.klCKVlnIXZ71yE2PFFdxqk324ey4iEglBgYIz3VS0_U
+Authorization: Bearer {{token}}
 
 ### Create Survey
 POST http://localhost:8000/api/survey
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ0ZXN0QGZyZWVjb2RlY2FtcC5vcmciLCJleHAiOjE1OTE0MjI5MzA1Mzd9.klCKVlnIXZ71yE2PFFdxqk324ey4iEglBgYIz3VS0_U
+Authorization: Bearer {{token}}
 
 {
-  "name": "Deno",
-  "description": "Deno description"
+  "name": "Application",
+  "description": "This is job application for Javascript Developer"
 }
 
 ### Update survey
 PUT http://localhost:8000/api/survey/5edb0ef000c8493f00025b88
 Content-Type: application/json
+Authorization: Bearer {{token}}
 
 {
   "name": "5edb0ef000c8493f00025b88",
@@ -50,58 +53,61 @@ Content-Type: application/json
 
 ### Get Single Survey
 GET http://localhost:8000/api/survey/5edb0f14003c1c7700025b89
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ0ZXN0QGZyZWVjb2RlY2FtcC5vcmciLCJleHAiOjE1OTE0MjI5MzA1Mzd9.klCKVlnIXZ71yE2PFFdxqk324ey4iEglBgYIz3VS0_U
-
+Authorization: Bearer {{token}}
 
 ### Delete the survey
 DELETE  http://localhost:8000/api/survey/5edb0ef000c8493f00025b88
+Authorization: Bearer {{token}}
 
 ###############################################
 ### QUESIONS
 ###############################################
 
 ### Get questions for survey
-GET http://localhost:8000/api/survey/5edb0f14003c1c7700025b89/question
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ0ZXN0QGZyZWVjb2RlY2FtcC5vcmciLCJleHAiOjE1OTE0MjI5MzA1Mzd9.klCKVlnIXZ71yE2PFFdxqk324ey4iEglBgYIz3VS0_U
+GET http://localhost:8000/api/survey/5edb333700fa6eb4007c7908/question
+Authorization: Bearer {{token}}
 
 ### Get Single Question
 GET http://localhost:8000/api/question/5edb0f87009ad01000fdb1bd
+Authorization: Bearer {{token}}
 
 ### Create question for survey
-POST http://localhost:8000/api/question/5edb0f14003c1c7700025b89
+POST http://localhost:8000/api/question/5edb333700fa6eb4007c7908
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ0ZXN0QGZyZWVjb2RlY2FtcC5vcmciLCJleHAiOjE1OTE0MjI5MzA1Mzd9.klCKVlnIXZ71yE2PFFdxqk324ey4iEglBgYIz3VS0_U
-
-# {
-#   "text": "Write one feature you like most in Deno",
-#   "type": "text",
-#   "required": true,
-#   "data": {}
-# }
+Authorization: Bearer {{token}}
 
 {
-  "text": "Do you want Deno with Typescript or Javascript",
+  "text": "Which one do you like in Deno?",
   "type": "choice",
   "required": true,
   "data": {
-    "multiple": false,
-    "answers": ["Typescript", "Javascript"]
+    "multiple": true,
+    "answers": [
+      "Typescript builtin support", 
+      "Testing builtin support",
+      "Fetch API",
+      "Code formatting",
+      "No node_modules. Oh Yes!!!",
+      "Import from URL"
+    ]
   }
 }
 
 ### Update question
-put http://localhost:8000/api/question/5edb0f87009ad01000fdb1bd
+put http://localhost:8000/api/question/5edb34f600352601007c790b
 Content-Type: application/json
+Authorization: Bearer {{token}}
 
 {
-  "text": "Do you want Deno with Typescript or Javascript?",
+  "text": "Your Working expreience",
   "type": "choice",
-  "required": true,
+  "required": false,
   "data": {
     "multiple": false,
-    "answers": ["Typescript", "Javascript", "I don't want Deno"]
+    "answers": ["Intern", "Junior", "Middle", "Senior"]
   }
 }
 
 ### Get Single Question
-DELETE http://localhost:8000/api/question/5edb0f87009ad01000fdb1bd
+DELETE http://localhost:8000/api/question/5edb363d00d83531007c790c
+Authorization: Bearer {{token}}
