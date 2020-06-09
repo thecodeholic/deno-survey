@@ -4,8 +4,8 @@ POST http://localhost:8000/api/register HTTP/1.1
 content-type: application/json
 
 {
-    "name": "TheCodeholic",
-    "email": "test@freecodecamp.org",
+    "name": "freecodecamp",
+    "email": "test@test2.com",
     "password": "test"
 }
 
@@ -15,11 +15,14 @@ POST http://localhost:8000/api/login
 Content-Type: application/json
 
 {
-    "email": "test@freecodecamp.org",
+    "email": "test@test2.com",
     "password": "test"
 }
 
-@token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ0ZXN0QGZyZWVjb2RlY2FtcC5vcmciLCJleHAiOjE1OTE3MzAyNzYzMDJ9.8X5GOilhzFIJYTnnP9iNSU8hAioYg8YtJ87_0vSptpg
+# TheCodeholic
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ0ZXN0QHRlc3QuY29tIiwiZXhwIjoxNTkxNzMxMDQ5MzU2fQ.eWdUkzL7aXG3wtUR2BS_pznD8Dh7baqbbwqmyhoPKJw
+# freecodecamp
+# @token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ0ZXN0QHRlc3QyLmNvbSIsImV4cCI6MTU5MTczMTMyMjEyOH0.KmeT7fHer9ijxXpyxNON4FQodGy3h8kU6Y1Mm_eS4gQ
 
 
 ###############################################
@@ -31,32 +34,32 @@ Content-Type: application/json
 GET http://localhost:8000/api/survey
 Authorization: Bearer {{token}}
 
+### Get Single Survey
+GET http://localhost:8000/api/survey/5eddbe7900458e0100542d8c
+Authorization: Bearer {{token}}
+
 ### Create Survey
 POST http://localhost:8000/api/survey
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
 {
-  "name": "Application",
+  "name": "Test 1",
   "description": "This is job application for Javascript Developer"
 }
 
 ### Update survey
-PUT http://localhost:8000/api/survey/5edb0ef000c8493f00025b88
+PUT http://localhost:8000/api/survey/5eddbe7900458e0100542d8c
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
 {
-  "name": "5edb0ef000c8493f00025b88",
-  "description": "5edb0ef000c8493f00025b88 long description"
+  "name": "Javascript",
+  "description": "Javascript long description"
 }
 
-### Get Single Survey
-GET http://localhost:8000/api/survey/5edb0f14003c1c7700025b89
-Authorization: Bearer {{token}}
-
 ### Delete the survey
-DELETE  http://localhost:8000/api/survey/5edb0ef000c8493f00025b88
+DELETE  http://localhost:8000/api/survey/5eddbe7900458e0100542d8c
 Authorization: Bearer {{token}}
 
 ###############################################
