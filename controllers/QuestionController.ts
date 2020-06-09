@@ -5,22 +5,22 @@ import Survey from "../models/Survey.ts";
 export class QuestionController {
   async getBySurvey(ctx: RouterContext) {
     const surveyId: string = ctx.params.surveyId!;
-    const survey = await Survey.get(surveyId);
+    const survey = await Survey.findOne(surveyId);
     if (!survey) {
       ctx.response.status = 404;
-      ctx.response.body = {message: 'Invalid Survey ID'};
+      ctx.response.body = { message: "Invalid Survey ID" };
       return;
     }
     const questions = await Question.getBySurvey(surveyId);
     ctx.response.body = questions;
   }
-  
+
   async getSingle(ctx: RouterContext) {
     const id: string = ctx.params.id!;
     const question: Question | null = await Question.get(id);
     if (!question) {
       ctx.response.status = 404;
-      ctx.response.body = {message: 'Invalid Question ID'};
+      ctx.response.body = { message: "Invalid Question ID" };
       return;
     }
     ctx.response.body = question;
@@ -28,29 +28,29 @@ export class QuestionController {
 
   async create(ctx: RouterContext) {
     const surveyId: string = ctx.params.surveyId!;
-    const survey = await Survey.get(surveyId);
+    const survey = await Survey.findOne(surveyId);
     if (!survey) {
       ctx.response.status = 404;
-      ctx.response.body = {message: 'Invalid Survey ID'};
+      ctx.response.body = { message: "Invalid Survey ID" };
       return;
     }
-    const {value: {text, type, required, data}} = await ctx.request.body();
-    const question = new Question({surveyId, text, type, required, data});
-    await question.create()
+    const { value: {text, type, required, data} } = await ctx.request.body();
+    const question = new Question({ surveyId, text, type, required, data });
+    await question.create();
     ctx.response.status = 201;
     ctx.response.body = question;
   }
 
   async update(ctx: RouterContext) {
     const id: string = ctx.params.id!;
-    const {value: {text, type, required, data}} = await ctx.request.body();
-    const question: Question | null = await Question.get(id)
+    const { value: {text, type, required, data} } = await ctx.request.body();
+    const question: Question | null = await Question.get(id);
     if (!question) {
       ctx.response.status = 404;
-      ctx.response.body = {message: 'Invalid Question ID'};
+      ctx.response.body = { message: "Invalid Question ID" };
       return;
     }
-    await question.update({text, type, required, data});
+    await question.update({ text, type, required, data });
     ctx.response.body = question;
   }
 
@@ -59,7 +59,7 @@ export class QuestionController {
     const question: Question | null = await Question.get(id);
     if (!question) {
       ctx.response.status = 404;
-      ctx.response.body = {message: 'Invalid Question ID'};
+      ctx.response.body = { message: "Invalid Question ID" };
       return;
     }
     await question.delete();
@@ -67,4 +67,4 @@ export class QuestionController {
   }
 }
 
-export default new QuestionController()
+export default new QuestionController();

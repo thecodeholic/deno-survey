@@ -11,15 +11,15 @@ content-type: application/json
 
 ### Login
 
-POST http://localhost:8000/api/login HTTP/1.1
-content-type: application/json
+POST http://localhost:8000/api/login
+Content-Type: application/json
 
 {
-    "username": "test",
+    "email": "test@freecodecamp.org",
     "password": "test"
 }
 
-@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ0ZXN0QGZyZWVjb2RlY2FtcC5vcmciLCJleHAiOjE1OTE0Mjc3MjUyNDR9.0CNrvcTZMJgUM8OHy0r9BxiEvJzGhuDcTAJtNojX9yw
+@token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ0ZXN0QGZyZWVjb2RlY2FtcC5vcmciLCJleHAiOjE1OTE3MzAyNzYzMDJ9.8X5GOilhzFIJYTnnP9iNSU8hAioYg8YtJ87_0vSptpg
 
 
 ###############################################

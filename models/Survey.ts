@@ -14,9 +14,18 @@ export default class Survey {
     this.name = name;
     this.description = description;
   }
-  static async getAll() {
+
+  static async findAll() {
     const surveys = await surveyCollection.find();
     return surveys.map((survey: any) => new Survey(Survey.prepare(survey)));
+  }
+
+  static async findOne(id: string) {
+    const survey = await surveyCollection.findOne({ _id: { $oid: id } });
+    if (!survey) {
+      return null;
+    }
+    return new Survey(Survey.prepare(survey));
   }
 
   public async create() {
@@ -38,14 +47,6 @@ export default class Survey {
       this.description = description;
     }
     return this;
-  }
-
-  static async get(id: string) {
-    const survey = await surveyCollection.findOne({ _id: { $oid: id } });
-    if (!survey) {
-      return null;
-    }
-    return new Survey(Survey.prepare(survey));
   }
 
   async delete() {
