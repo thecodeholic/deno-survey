@@ -1,6 +1,4 @@
 import { surveyCollection } from "../mongo.ts";
-import Question from "./Question.ts";
-import BaseModel from "./BaseModel.ts";
 
 export default class Survey {
   public id = "";
@@ -12,26 +10,29 @@ export default class Survey {
     name = "",
     description = "",
   }) {
-      this.id = id;
-      this.name = name;
-      this.description = description;
+    this.id = id;
+    this.name = name;
+    this.description = description;
   }
   static async getAll() {
     const surveys = await surveyCollection.find();
     return surveys.map((survey: any) => new Survey(Survey.prepare(survey)));
   }
 
-  public async create(){
+  public async create() {
     delete this.id;
-    const {$oid} = await surveyCollection.insertOne(this)
+    const { $oid } = await surveyCollection.insertOne(this);
     this.id = $oid;
     return this;
   }
 
-  public async update({name = '', description = ''}) {
-    const {modifiedCount} = await surveyCollection.updateOne({ _id: { $oid: this.id } }, {
-      $set: {name, description}
-    });
+  public async update({ name = "", description = "" }) {
+    const { modifiedCount } = await surveyCollection.updateOne(
+      { _id: { $oid: this.id } },
+      {
+        $set: { name, description },
+      },
+    );
     if (modifiedCount > 0) {
       this.name = name;
       this.description = description;
@@ -44,11 +45,11 @@ export default class Survey {
     if (!survey) {
       return null;
     }
-    return new Survey(Survey.prepare(survey))
+    return new Survey(Survey.prepare(survey));
   }
 
   async delete() {
-    return surveyCollection.deleteOne({_id: {$oid: this.id}});
+    return surveyCollection.deleteOne({ _id: { $oid: this.id } });
   }
 
   private static prepare(data: any) {

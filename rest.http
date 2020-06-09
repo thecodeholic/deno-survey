@@ -111,3 +111,11 @@ Authorization: Bearer {{token}}
 ### Get Single Question
 DELETE http://localhost:8000/api/question/5edb363d00d83531007c790c
 Authorization: Bearer {{token}}
+
+
+###############################################
+### ANSWERS
+###############################################
+
+GET http://localhost:8000/api/survey/5edb333700fa6eb4007c7908/question
+Authorization: Bearer {{token}}

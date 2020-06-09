@@ -1,9 +1,9 @@
-import {MongoClient} from "./deps.ts";
+import { MongoClient } from "./deps.ts";
 
 const client = new MongoClient();
-client.connectWithUri(Deno.env.get('MONGODB_URI') || '');
+client.connectWithUri(Deno.env.get("MONGODB_URI") || "");
 
-const db = client.database("deno_survey_db");
+const db = client.database(Deno.env.get("DB_NAME") || "");
 export default db;
 
 export const userCollection = db.collection("users");
