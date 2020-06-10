@@ -22,7 +22,7 @@ export class SurveyController extends BaseSurveyController {
     const { value: { name, description } } = await ctx.request.body();
 
     const user = ctx.state.user as User;
-    const survey = new Survey({ name, userId: user.id, description });
+    const survey = new Survey(user.id, name, description);
     await survey.create();
     ctx.response.status = 201;
     ctx.response.body = survey;

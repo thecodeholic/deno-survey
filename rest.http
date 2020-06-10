@@ -20,7 +20,7 @@ Content-Type: application/json
 }
 
 # Zura
-@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ6dXJhQHRlc3QuY29tIiwiZXhwIjoxNTkxNzcyMzgwMjk0fQ.fQXM1bAzt7TdLfg8GKWr0qb6-2OyFkdqPxMqlRwrkKA
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ6dXJhQHRlc3QuY29tIiwiZXhwIjoxNTkxODE1MDI4MjE0fQ.ejJkd5EYF1wEx0u0aB_q9OSCUYmgtIjH6thMp59UT2M
 # freecodecamp
 # @token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ0ZXN0QHRlc3QyLmNvbSIsImV4cCI6MTU5MTc2NzM4NjYzOX0.AyJUrKg4lJr-RSf_98jaCHrd7KXtFQjDJjNHY0Q4j5Y
 
@@ -35,7 +35,7 @@ GET http://localhost:8000/api/survey
 Authorization: Bearer {{token}}
 
 ### Get Single Survey
-GET http://localhost:8000/api/survey/5edfdfb000f3102800ad0218
+GET http://localhost:8000/api/survey/5ee076c2001a4de900e82549
 Authorization: Bearer {{token}}
 
 ### Create Survey
@@ -44,8 +44,8 @@ Content-Type: application/json
 Authorization: Bearer {{token}}
 
 {
-  "name": "Flutter",
-  "description": "I want to create the best Flutter course for you. To do that, I need to understand you and your challenges. Please take a minute and answer the following questions.  "
+  "name": "Javascript Job Application",
+  "description": "We would like to know your exprience on Javascript"
 }
 
 ### Update survey
@@ -78,6 +78,34 @@ Authorization: Bearer {{token}}
 POST http://localhost:8000/api/question/5ee076f5005ae40c00e8254a
 Content-Type: application/json
 Authorization: Bearer {{token}}
+
+{
+  "text": "Do you have experience in OOP?",
+  "type": "choice",
+  "required": true,
+  "data": {
+    "multiple": false,
+    "answers": [
+      "Yes", 
+      "No"
+    ]
+  }
+}
+
+# {
+#   "text": "How many years of experience do you have in Javascript?",
+#   "type": "choice",
+#   "required": true,
+#   "data": {
+#     "multiple": false,
+#     "answers": [
+#       "< 2 years", 
+#       "2 to 5 years",
+#       "5 to 8 years",
+#       "8+ years"
+#     ]
+#   }
+# }
 
 # {
 #   "text": "Do you know how to build apps with Flutter?",

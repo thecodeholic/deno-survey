@@ -2,14 +2,14 @@ import { surveyCollection } from "../mongo.ts";
 import BaseModel from "./BaseModel.ts";
 
 export default class Survey extends BaseModel {
-  public id: string;
-  public userId: string;
-  public name: string;
-  public description: string;
+  public id: string = "";
 
-  constructor({ id = "", userId = "", name = "", description = "" }) {
+  constructor(
+    public userId: string,
+    public name: string,
+    public description: string,
+  ) {
     super();
-    this.id = id;
     this.userId = userId;
     this.name = name;
     this.description = description;
@@ -17,12 +17,12 @@ export default class Survey extends BaseModel {
 
   static async findAll(): Promise<Survey[]> {
     const surveys = await surveyCollection.find();
-    return surveys.map((survey: any) => new Survey(Survey.prepare(survey)));
+    return surveys.map((survey: any) => Survey.prepare(survey));
   }
 
   static async findByUser(userId: string): Promise<Survey[]> {
     const surveys = await surveyCollection.find({ userId });
-    return surveys.map((survey: object) => new Survey(Survey.prepare(survey)));
+    return surveys.map((survey: object) => Survey.prepare(survey));
   }
 
   static async findOne(id: string): Promise<Survey | null> {
@@ -30,7 +30,7 @@ export default class Survey extends BaseModel {
     if (!survey) {
       return null;
     }
-    return new Survey(Survey.prepare(survey));
+    return Survey.prepare(survey);
   }
 
   async create() {
@@ -55,5 +55,16 @@ export default class Survey extends BaseModel {
 
   delete() {
     return surveyCollection.deleteOne({ _id: { $oid: this.id } });
+  }
+
+  static prepare(data: any): Survey {
+    data = BaseModel.prepare(data);
+    const survey = new Survey(
+      data.userId,
+      data.name,
+      data.description,
+    );
+    survey.id = data.id;
+    return survey;
   }
 }
