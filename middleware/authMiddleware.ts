@@ -1,9 +1,8 @@
 import { RouterContext, validateJwt } from "../deps.ts";
 import User from "../models/User.ts";
-import { JwtObject } from "../deps.ts";
 
 export const authMiddleware = async (ctx: RouterContext, next: Function) => {
-  const headers: Headers = ctx.request.headers;
+  const headers = ctx.request.headers;
 
   const authorization = headers.get("Authorization");
   if (!authorization) {
@@ -15,7 +14,7 @@ export const authMiddleware = async (ctx: RouterContext, next: Function) => {
     ctx.response.status = 401;
     return;
   }
-  const data: JwtObject | null = await validateJwt(
+  const data = await validateJwt(
     jwt,
     Deno.env.get("JWT_SECRET_KEY") || "",
     { isThrowing: false },

@@ -1,18 +1,15 @@
 import { RouterContext } from "../deps.ts";
 import Question from "../models/Question.ts";
 import Survey from "../models/Survey.ts";
+import BaseSurveyController from "./BaseSurveyController.ts";
 
-export class QuestionController {
+export class QuestionController extends BaseSurveyController {
   async getBySurvey(ctx: RouterContext) {
     const surveyId: string = ctx.params.surveyId!;
-    const survey = await Survey.findOne(surveyId);
-    if (!survey) {
-      ctx.response.status = 404;
-      ctx.response.body = { message: "Invalid Survey ID" };
-      return;
+    const survey = this.findSurveyOrFail(surveyId, ctx);
+    if (survey) {
+      ctx.response.body = await Question.findBySurvey(surveyId);
     }
-    const questions = await Question.getBySurvey(surveyId);
-    ctx.response.body = questions;
   }
 
   async getSingle(ctx: RouterContext) {
@@ -28,10 +25,8 @@ export class QuestionController {
 
   async create(ctx: RouterContext) {
     const surveyId: string = ctx.params.surveyId!;
-    const survey = await Survey.findOne(surveyId);
+    const survey = this.findSurveyOrFail(surveyId, ctx);
     if (!survey) {
-      ctx.response.status = 404;
-      ctx.response.body = { message: "Invalid Survey ID" };
       return;
     }
     const { value: {text, type, required, data} } = await ctx.request.body();
@@ -44,7 +39,7 @@ export class QuestionController {
   async update(ctx: RouterContext) {
     const id: string = ctx.params.id!;
     const { value: {text, type, required, data} } = await ctx.request.body();
-    const question: Question | null = await Question.get(id);
+    const question: Question | null = await Question.findOne(id);
     if (!question) {
       ctx.response.status = 404;
       ctx.response.body = { message: "Invalid Question ID" };
@@ -56,7 +51,7 @@ export class QuestionController {
 
   async delete(ctx: RouterContext) {
     const id: string = ctx.params.id!;
-    const question: Question | null = await Question.get(id);
+    const question: Question | null = await Question.findOne(id);
     if (!question) {
       ctx.response.status = 404;
       ctx.response.body = { message: "Invalid Question ID" };

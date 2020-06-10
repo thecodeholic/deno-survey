@@ -20,9 +20,9 @@ Content-Type: application/json
 }
 
 # TheCodeholic
-@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ0ZXN0QHRlc3QuY29tIiwiZXhwIjoxNTkxNzMxMDQ5MzU2fQ.eWdUkzL7aXG3wtUR2BS_pznD8Dh7baqbbwqmyhoPKJw
+# @token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ0ZXN0QHRlc3QuY29tIiwiZXhwIjoxNTkxNzMxMDQ5MzU2fQ.eWdUkzL7aXG3wtUR2BS_pznD8Dh7baqbbwqmyhoPKJw
 # freecodecamp
-# @token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ0ZXN0QHRlc3QyLmNvbSIsImV4cCI6MTU5MTczMTMyMjEyOH0.KmeT7fHer9ijxXpyxNON4FQodGy3h8kU6Y1Mm_eS4gQ
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ0ZXN0QHRlc3QyLmNvbSIsImV4cCI6MTU5MTc2NzM4NjYzOX0.AyJUrKg4lJr-RSf_98jaCHrd7KXtFQjDJjNHY0Q4j5Y
 
 
 ###############################################
@@ -35,7 +35,7 @@ GET http://localhost:8000/api/survey
 Authorization: Bearer {{token}}
 
 ### Get Single Survey
-GET http://localhost:8000/api/survey/5eddbe7900458e0100542d8c
+GET http://localhost:8000/api/survey/5edfdfb000f3102800ad0218
 Authorization: Bearer {{token}}
 
 ### Create Survey
@@ -49,7 +49,7 @@ Authorization: Bearer {{token}}
 }
 
 ### Update survey
-PUT http://localhost:8000/api/survey/5eddbe7900458e0100542d8c
+PUT http://localhost:8000/api/survey/5edfdfb000f3102800ad0218
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
@@ -67,7 +67,7 @@ Authorization: Bearer {{token}}
 ###############################################
 
 ### Get questions for survey
-GET http://localhost:8000/api/survey/5edb333700fa6eb4007c7908/question
+GET http://localhost:8000/api/survey/5edfdfb000f3102800ad0218/question
 Authorization: Bearer {{token}}
 
 ### Get Single Question

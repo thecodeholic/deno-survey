@@ -3,7 +3,8 @@ import { authMiddleware } from "./middleware/authMiddleware.ts";
 import siteController from "./controllers/SiteController.ts";
 import surveyController from "./controllers/SurveyController.ts";
 import questionController from "./controllers/QuestionController.ts";
-import apiController from "./controllers/ApiController.ts";
+import authController from "./controllers/AuthController.ts";
+import { questionCollection } from "./mongo.ts";
 
 const router = new Router();
 
@@ -11,8 +12,8 @@ router
   .get("/", siteController.surveys)
   .get("/survey/:id", siteController.viewSurvey)
   .post("/survey/:id", siteController.submitSurvey)
-  .post("/api/register", apiController.register)
-  .post("/api/login", apiController.login)
+  .post("/api/register", authController.register)
+  .post("/api/login", authController.login)
   // Survey CRUD
   .get(
     "/api/survey",
@@ -43,11 +44,27 @@ router
   .get(
     "/api/survey/:surveyId/question",
     authMiddleware,
-    questionController.getBySurvey,
+    questionController.getBySurvey.bind(questionCollection),
   )
-  .get("/api/question/:id", authMiddleware, questionController.getSingle)
-  .post("/api/question/:surveyId", authMiddleware, questionController.create)
-  .put("/api/question/:id", authMiddleware, questionController.update)
-  .delete("/api/question/:id", authMiddleware, questionController.delete);
+  .get(
+    "/api/question/:id",
+    authMiddleware,
+    questionController.getSingle.bind(questionCollection),
+  )
+  .post(
+    "/api/question/:surveyId",
+    authMiddleware,
+    questionController.create.bind(questionCollection),
+  )
+  .put(
+    "/api/question/:id",
+    authMiddleware,
+    questionController.update.bind(questionCollection),
+  )
+  .delete(
+    "/api/question/:id",
+    authMiddleware,
+    questionController.delete.bind(questionCollection),
+  );
 
 export default router;

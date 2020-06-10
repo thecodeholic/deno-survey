@@ -28,12 +28,20 @@ export default class Question {
     this.data = data;
   }
 
-  static async getBySurvey(surveyId: string) {
+  static async findBySurvey(surveyId: string): Promise<Question[]> {
     const questions = await questionCollection.find({ surveyId });
     if (!questions) {
       return [];
     }
     return questions.map((q: object) => new Question(Question.prepare(q)));
+  }
+
+  static async findOne(id: string): Promise<Question | null> {
+    const question = await questionCollection.findOne({ _id: { $oid: id } });
+    if (!question) {
+      return null;
+    }
+    return new Question(Question.prepare(question));
   }
 
   async create() {
@@ -43,20 +51,12 @@ export default class Question {
     return this;
   }
 
-  static async get(id: string) {
-    const question = await questionCollection.findOne({ _id: { $oid: id } });
-    if (!question) {
-      return null;
-    }
-    return new Question(Question.prepare(question));
-  }
-
   public async update({ text = "", type = "", required = false, data = {} }) {
     this.text = text;
     this.type = type;
     this.required = required;
     this.data = data;
-    const { modifiedCount } = await questionCollection.updateOne(
+    await questionCollection.updateOne(
       { _id: { $oid: this.id } },
       {
         $set: {

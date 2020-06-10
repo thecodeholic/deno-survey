@@ -13,7 +13,7 @@ export default class User {
     this.password = password;
   }
 
-  static async findOne(params: object) {
+  static async findOne(params: object): Promise<User | null> {
     const user = await userCollection.findOne(params);
     if (!user) {
       return null;

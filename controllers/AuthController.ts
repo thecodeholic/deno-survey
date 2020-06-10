@@ -13,7 +13,7 @@ const header: Jose = {
   alg: "HS256",
   typ: "JWT",
 };
-export class ApiController {
+export class AuthController {
   async register(ctx: RouterContext) {
     const { value: { name, email, password } } = await ctx.request.body();
 
@@ -68,4 +68,4 @@ export class ApiController {
   }
 }
 
-export default new ApiController();
+export default new AuthController();

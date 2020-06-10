@@ -1,8 +1,9 @@
 import { RouterContext } from "../deps.ts";
 import Survey from "../models/Survey.ts";
 import User from "../models/User.ts";
+import BaseSurveyController from "./BaseSurveyController.ts";
 
-export class SurveyController {
+export class SurveyController extends BaseSurveyController {
   async getAll(ctx: RouterContext) {
     const user: User = ctx.state.user as User;
     const surveys = await Survey.findByUser(user.id);
@@ -11,7 +12,7 @@ export class SurveyController {
 
   async getSingle(ctx: RouterContext) {
     const id: string = ctx.params.id!;
-    let survey: Survey | null = await this.findOrFail(id, ctx);
+    let survey: Survey | null = await this.findSurveyOrFail(id, ctx);
     if (survey) {
       ctx.response.body = survey;
     }
@@ -30,7 +31,7 @@ export class SurveyController {
   async update(ctx: RouterContext) {
     const id: string = ctx.params.id!;
     const { value: { name, description } } = await ctx.request.body();
-    const survey: Survey | null = await this.findOrFail(id, ctx);
+    const survey: Survey | null = await this.findSurveyOrFail(id, ctx);
     if (survey) {
       await survey.update({ name, description });
       ctx.response.body = survey;
@@ -39,30 +40,11 @@ export class SurveyController {
 
   async delete(ctx: RouterContext) {
     const id: string = ctx.params.id!;
-    const survey: Survey | null = await this.findOrFail(id, ctx);
+    const survey: Survey | null = await this.findSurveyOrFail(id, ctx);
     if (survey) {
       await survey.delete();
       ctx.response.status = 204;
     }
-  }
-  async findOrFail(id: string, ctx: RouterContext): Promise<Survey | null> {
-    const survey: Survey | null = await Survey.findOne(id);
-    // If the survey does not exist return with 404
-    if (!survey) {
-      ctx.response.status = 404;
-      ctx.response.body = { message: "Invalid Survey ID" };
-      return null;
-    }
-    const user = ctx.state.user as User;
-    // If survey does not belong to current user, return with 403
-    if (survey.userId !== user.id) {
-      ctx.response.status = 403;
-      ctx.response.body = {
-        message: "You don't have permission to view this survey",
-      };
-      return null;
-    }
-    return survey;
   }
 }
 
