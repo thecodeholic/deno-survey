@@ -4,8 +4,8 @@ POST http://localhost:8000/api/register HTTP/1.1
 content-type: application/json
 
 {
-    "name": "freecodecamp",
-    "email": "test@test2.com",
+    "name": "thecodeholic",
+    "email": "zura@test.com",
     "password": "test"
 }
 
@@ -15,14 +15,14 @@ POST http://localhost:8000/api/login
 Content-Type: application/json
 
 {
-    "email": "test@test2.com",
+    "email": "zura@test.com",
     "password": "test"
 }
 
-# TheCodeholic
-# @token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ0ZXN0QHRlc3QuY29tIiwiZXhwIjoxNTkxNzMxMDQ5MzU2fQ.eWdUkzL7aXG3wtUR2BS_pznD8Dh7baqbbwqmyhoPKJw
+# Zura
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ6dXJhQHRlc3QuY29tIiwiZXhwIjoxNTkxNzcyMzgwMjk0fQ.fQXM1bAzt7TdLfg8GKWr0qb6-2OyFkdqPxMqlRwrkKA
 # freecodecamp
-@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ0ZXN0QHRlc3QyLmNvbSIsImV4cCI6MTU5MTc2NzM4NjYzOX0.AyJUrKg4lJr-RSf_98jaCHrd7KXtFQjDJjNHY0Q4j5Y
+# @token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJ0ZXN0QHRlc3QyLmNvbSIsImV4cCI6MTU5MTc2NzM4NjYzOX0.AyJUrKg4lJr-RSf_98jaCHrd7KXtFQjDJjNHY0Q4j5Y
 
 
 ###############################################
@@ -44,8 +44,8 @@ Content-Type: application/json
 Authorization: Bearer {{token}}
 
 {
-  "name": "Test 1",
-  "description": "This is job application for Javascript Developer"
+  "name": "Flutter",
+  "description": "I want to create the best Flutter course for you. To do that, I need to understand you and your challenges. Please take a minute and answer the following questions.  "
 }
 
 ### Update survey
@@ -67,7 +67,7 @@ Authorization: Bearer {{token}}
 ###############################################
 
 ### Get questions for survey
-GET http://localhost:8000/api/survey/5edfdfb000f3102800ad0218/question
+GET http://localhost:8000/api/survey/5ee076f5005ae40c00e8254a/question
 Authorization: Bearer {{token}}
 
 ### Get Single Question
@@ -75,39 +75,93 @@ GET http://localhost:8000/api/question/5ee06942002fed3200c67c60
 Authorization: Bearer {{token}}
 
 ### Create question for survey
-POST http://localhost:8000/api/question/5edfdfb000f3102800ad0218
+POST http://localhost:8000/api/question/5ee076f5005ae40c00e8254a
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+# {
+#   "text": "Do you know how to build apps with Flutter?",
+#   "type": "choice",
+#   "required": true,
+#   "data": {
+#     "multiple": false,
+#     "answers": [
+#       "Yes", 
+#       "No"
+#     ]
+#   }
+# }
+
+# {
+#   "text": "If yes, what parts of Flutter do you want to learn more about? Feel free to explain in details.",
+#   "type": "text",
+#   "required": false
+# }
+# {
+#   "text": "Why do you want to learn Flutter?",
+#   "type": "text",
+#   "required": true
+# }
+# {
+#   "text": "Have you taken other Flutter courses before? If yes, what are the problems with those courses that I should avoid?",
+#   "type": "text",
+#   "required": false
+# }
+# {
+#   "text": "To build apps with Flutter, you need to use the Dart programming language. Are you familiar with Dart? *",
+#   "type": "choice",
+#   "required": false,
+#   "data": {
+#     "multiple": false,
+#     "answers": ["Yes", "No"]
+#   }
+# }
+# {
+#   "text": "If not, how do you want me to teach it to you?",
+#   "type": "choice",
+#   "required": true,
+#   "data": {
+#     "multiple": false,
+#     "answers": ["Teach Dart in detail first", "Teach Dart along with Flutter"]
+#   }
+# }
+# {
+#   "text": "Are you familiar with object-oriented programming concepts (classes, inheritance, etc)?",
+#   "type": "choice",
+#   "required": true,
+#   "data": {
+#     "multiple": false,
+#     "answers": ["Yes", "No"]
+#   }
+# }
+# {
+#   "text": "What languages can you program in?",
+#   "type": "choice",
+#   "required": true,
+#   "data": {
+#     "multiple": true,
+#     "answers": ["Python", "Java", "JavaScript", "C#", "I have never coded before"]
+#   }
+# }
+{
+  "text": "Any other comments?",
+  "type": "text",
+  "required": false
+}
+
+
+### Update question
+put http://localhost:8000/api/question/5ee07892001a059c00e8254f
 Content-Type: application/json
 Authorization: Bearer {{token}}
 
 {
-  "text": "Which one do you like in Deno?",
+  "text": "To build apps with Flutter, you need to use the Dart programming language. Are you familiar with Dart?",
   "type": "choice",
   "required": true,
   "data": {
-    "multiple": true,
-    "answers": [
-      "Typescript builtin support", 
-      "Testing builtin support",
-      "Fetch API",
-      "Code formatting",
-      "No node_modules. Oh Yes!!!",
-      "Import from URL"
-    ]
-  }
-}
-
-### Update question
-put http://localhost:8000/api/question/5edb34f600352601007c790b
-Content-Type: application/json
-Authorization: Bearer {{token}}
-
-{
-  "text": "Your Working expreience",
-  "type": "choice",
-  "required": false,
-  "data": {
     "multiple": false,
-    "answers": ["Intern", "Junior", "Middle", "Senior"]
+    "answers": ["Yes", "No"]
   }
 }
 

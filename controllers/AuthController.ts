@@ -48,7 +48,6 @@ export class AuthController {
       return;
     }
 
-    console.log(email, password);
     const payload: Payload = {
       iss: user.email,
       exp: setExpiration(

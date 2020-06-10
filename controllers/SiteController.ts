@@ -1,7 +1,7 @@
 import { RouterContext } from "../deps.ts";
 import { renderView } from "../helpers.ts";
 import Survey from "../models/Survey.ts";
-import Question from "../models/Question.ts";
+import Question, { QuestionType } from "../models/Question.ts";
 import { answerCollection } from "../mongo.ts";
 
 export class SiteController {
@@ -18,7 +18,7 @@ export class SiteController {
       ctx.response.body = await renderView("notfound");
       return;
     }
-    const questions: Question[] = await Question.findBySurvey(id);
+    const questions = await Question.findBySurvey(id);
 
     ctx.response.body = await renderView("survey", {
       survey,
@@ -42,12 +42,16 @@ export class SiteController {
     console.log(formData);
     for (const question of questions) {
       let value = formData.get(question.id);
-      if (question.type === "choice" && question.data.multiple === true) {
+      if (
+        question.type === QuestionType.CHOICE &&
+        question.data.multiple === true
+      ) {
         value = formData.getAll(question.id);
       }
       if (question.required) {
         if (
-          question.type === "choice" && question.data.multiple &&
+          question.type === QuestionType.CHOICE &&
+            question.data.multiple &&
             !value.length || (!value)
         ) {
           errors[question.id] = "This field is required";
@@ -55,8 +59,6 @@ export class SiteController {
       }
       answers[question.id] = value;
     }
-    console.log("Errors ", errors);
-    console.log("Answers ", answers);
     if (Object.keys(errors).length > 0) {
       ctx.response.body = await renderView("survey", {
         survey,

@@ -4,30 +4,15 @@ import { surveyCollection, questionCollection } from "../mongo.ts";
 import BaseModel from "./BaseModel.ts";
 
 export default class Question extends BaseModel {
-  public id: string;
-  public surveyId: string;
-  public text: string;
-  public type: string;
-  public required: boolean;
-  public data: any;
-
+  public id: string = "";
   constructor(
-    {
-      id = "",
-      surveyId = "",
-      text = "",
-      type = "",
-      required = false,
-      data = {},
-    } = {},
+    public surveyId: string,
+    public text: string,
+    public type: QuestionType,
+    public required: boolean,
+    public data: any,
   ) {
     super();
-    this.id = id;
-    this.surveyId = surveyId;
-    this.text = text;
-    this.type = type;
-    this.required = required;
-    this.data = data;
   }
 
   static async findBySurvey(surveyId: string): Promise<Question[]> {
@@ -35,7 +20,7 @@ export default class Question extends BaseModel {
     if (!questions) {
       return [];
     }
-    return questions.map((q: object) => new Question(Question.prepare(q)));
+    return questions.map((q: object) => Question.prepare(q));
   }
 
   static async findOne(id: string): Promise<Question | null> {
@@ -43,7 +28,7 @@ export default class Question extends BaseModel {
     if (!question) {
       return null;
     }
-    return new Question(Question.prepare(question));
+    return Question.prepare(question);
   }
 
   async create() {
@@ -53,7 +38,12 @@ export default class Question extends BaseModel {
     return this;
   }
 
-  public async update({ text = "", type = "", required = false, data = {} }) {
+  public async update(
+    text: string,
+    type: QuestionType,
+    required: boolean,
+    data: any,
+  ) {
     this.text = text;
     this.type = type;
     this.required = required;
@@ -75,4 +65,30 @@ export default class Question extends BaseModel {
   async delete() {
     return questionCollection.deleteOne({ _id: { $oid: this.id } });
   }
+
+  isText() {
+    return this.type === QuestionType.TEXT;
+  }
+
+  isChoice() {
+    return this.type === QuestionType.CHOICE;
+  }
+
+  static prepare(data: any): Question {
+    data = BaseModel.prepare(data);
+    const question = new Question(
+      data.surveyId,
+      data.text,
+      data.type,
+      data.required,
+      data.data,
+    );
+    question.id = data.id;
+    return question;
+  }
+}
+
+export enum QuestionType {
+  TEXT = "text",
+  CHOICE = "choice",
 }

@@ -30,7 +30,7 @@ export class QuestionController extends BaseSurveyController {
       return;
     }
     const { value: {text, type, required, data} } = await ctx.request.body();
-    const question = new Question({ surveyId, text, type, required, data });
+    const question = new Question(surveyId, text, type, required, data);
     await question.create();
     ctx.response.status = 201;
     ctx.response.body = question;
@@ -45,7 +45,7 @@ export class QuestionController extends BaseSurveyController {
       ctx.response.body = { message: "Invalid Question ID" };
       return;
     }
-    await question.update({ text, type, required, data });
+    await question.update(text, type, required, data);
     ctx.response.body = question;
   }
 

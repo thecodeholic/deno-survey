@@ -24,7 +24,7 @@
           <span class="text-danger"> *</span>
           <% } %>
         </h5>
-        <% if (question.type === 'text') { %>
+        <% if (question.isText()) { %>
         <div class="answers">
           <input type="text" class="form-control<%= errors[question.id] ? ' is-invalid' : '' %>"
             name="<%= question.id %>" placeholder="Write your answer" value="<%= answers[question.id] %>">
@@ -34,7 +34,7 @@
           </div>
           <% } %>
         </div>
-        <% } else if (question.type === 'choice' && !question.data.multiple) { %>
+        <% } else if (question.isChoice() && !question.data.multiple) { %>
         <div class="answers">
           <% for (const [index, answer] of question.data.answers.entries()) { %>
           <div class="custom-control custom-radio ">
@@ -50,7 +50,7 @@
           </div>
           <% } %>
         </div>
-        <% } else if (question.type === 'choice' && question.data.multiple) { %>
+        <% } else if (question.isChoice() && question.data.multiple) { %>
         <div class="answers">
           <% for (const [index, answer] of question.data.answers.entries()) { %>
           <div class="custom-control custom-checkbox">
