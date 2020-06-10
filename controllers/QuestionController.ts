@@ -6,7 +6,7 @@ import BaseSurveyController from "./BaseSurveyController.ts";
 export class QuestionController extends BaseSurveyController {
   async getBySurvey(ctx: RouterContext) {
     const surveyId: string = ctx.params.surveyId!;
-    const survey = this.findSurveyOrFail(surveyId, ctx);
+    const survey = await this.findSurveyOrFail(surveyId, ctx);
     if (survey) {
       ctx.response.body = await Question.findBySurvey(surveyId);
     }
@@ -14,7 +14,7 @@ export class QuestionController extends BaseSurveyController {
 
   async getSingle(ctx: RouterContext) {
     const id: string = ctx.params.id!;
-    const question: Question | null = await Question.get(id);
+    const question: Question | null = await Question.findOne(id);
     if (!question) {
       ctx.response.status = 404;
       ctx.response.body = { message: "Invalid Question ID" };

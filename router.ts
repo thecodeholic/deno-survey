@@ -4,7 +4,6 @@ import siteController from "./controllers/SiteController.ts";
 import surveyController from "./controllers/SurveyController.ts";
 import questionController from "./controllers/QuestionController.ts";
 import authController from "./controllers/AuthController.ts";
-import { questionCollection } from "./mongo.ts";
 
 const router = new Router();
 
@@ -44,27 +43,27 @@ router
   .get(
     "/api/survey/:surveyId/question",
     authMiddleware,
-    questionController.getBySurvey.bind(questionCollection),
+    questionController.getBySurvey.bind(questionController),
   )
   .get(
     "/api/question/:id",
     authMiddleware,
-    questionController.getSingle.bind(questionCollection),
+    questionController.getSingle.bind(questionController),
   )
   .post(
     "/api/question/:surveyId",
     authMiddleware,
-    questionController.create.bind(questionCollection),
+    questionController.create.bind(questionController),
   )
   .put(
     "/api/question/:id",
     authMiddleware,
-    questionController.update.bind(questionCollection),
+    questionController.update.bind(questionController),
   )
   .delete(
     "/api/question/:id",
     authMiddleware,
-    questionController.delete.bind(questionCollection),
+    questionController.delete.bind(questionController),
   );
 
 export default router;

@@ -71,11 +71,11 @@ GET http://localhost:8000/api/survey/5edfdfb000f3102800ad0218/question
 Authorization: Bearer {{token}}
 
 ### Get Single Question
-GET http://localhost:8000/api/question/5edb0f87009ad01000fdb1bd
+GET http://localhost:8000/api/question/5ee06942002fed3200c67c60
 Authorization: Bearer {{token}}
 
 ### Create question for survey
-POST http://localhost:8000/api/question/5edb333700fa6eb4007c7908
+POST http://localhost:8000/api/question/5edfdfb000f3102800ad0218
 Content-Type: application/json
 Authorization: Bearer {{token}}
 

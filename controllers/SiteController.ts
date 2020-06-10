@@ -18,7 +18,7 @@ export class SiteController {
       ctx.response.body = await renderView("notfound");
       return;
     }
-    const questions: Question[] = await Question.getBySurvey(id);
+    const questions: Question[] = await Question.findBySurvey(id);
 
     ctx.response.body = await renderView("survey", {
       survey,
@@ -36,7 +36,7 @@ export class SiteController {
       return;
     }
     const { value: formData } = await ctx.request.body();
-    const questions: Question[] = await Question.getBySurvey(id);
+    const questions: Question[] = await Question.findBySurvey(id);
     const answers: any = {};
     const errors: any = {};
     console.log(formData);
