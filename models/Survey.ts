@@ -1,12 +1,14 @@
 import { surveyCollection } from "../mongo.ts";
+import BaseModel from "./BaseModel.ts";
 
-export default class Survey {
+export default class Survey extends BaseModel {
   public id: string;
   public userId: string;
   public name: string;
   public description: string;
 
   constructor({ id = "", userId = "", name = "", description = "" }) {
+    super();
     this.id = id;
     this.userId = userId;
     this.name = name;
@@ -53,11 +55,5 @@ export default class Survey {
 
   delete() {
     return surveyCollection.deleteOne({ _id: { $oid: this.id } });
-  }
-
-  private static prepare(data: any) {
-    data.id = data._id.$oid;
-    delete data._id.$oid;
-    return data;
   }
 }

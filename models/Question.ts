@@ -1,8 +1,9 @@
 import { v4 } from "../deps.ts";
 import Survey from "./Survey.ts";
 import { surveyCollection, questionCollection } from "../mongo.ts";
+import BaseModel from "./BaseModel.ts";
 
-export default class Question {
+export default class Question extends BaseModel {
   public id: string;
   public surveyId: string;
   public text: string;
@@ -20,6 +21,7 @@ export default class Question {
       data = {},
     } = {},
   ) {
+    super();
     this.id = id;
     this.surveyId = surveyId;
     this.text = text;
@@ -72,11 +74,5 @@ export default class Question {
 
   async delete() {
     return questionCollection.deleteOne({ _id: { $oid: this.id } });
-  }
-
-  private static prepare(data: any) {
-    data.id = data._id.$oid;
-    delete data._id;
-    return data;
   }
 }
