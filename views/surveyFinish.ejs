@@ -1,14 +1,17 @@
-<%- await include(`views/partials/header.ejs`)  %> 
+<%- await include(`views/partials/header.ejs`)  %>
 
 <div class="container">
   <div class="alert alert-success">
     <h2>Thank you for participating in survey</h2>
     <p>Here is your answer ID for future reference: <%= answerId %></p>
+    <p>
+      <a href="">Submit another response</a>
+    </p>
   </div>
 
   <div>
-    Go to <a href="/">home page</a> 
+    Go to <a href="/">home page</a>
   </div>
 </div>
 
-<%- await include(`views/partials/footer.ejs`)  %> 
+<%- await include(`views/partials/footer.ejs`)  %>
