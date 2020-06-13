@@ -1,0 +1,118 @@
+### Register
+
+POST http://localhost:8000/api/register HTTP/1.1
+content-type: application/json
+
+{
+    "name": "freecodecamp",
+    "email": "zura@freecodecamp.com",
+    "password": "zura"
+}
+
+### Login
+
+POST http://localhost:8000/api/login
+Content-Type: application/json
+
+{
+    "email": "zura@freecodecamp.com",
+    "password": "zura"
+}
+
+@token = PUT_ACCESS_TOKEN_HERE
+
+###############################################
+### SURVEYS
+###############################################
+
+
+### Get All Surveys
+GET http://localhost:8000/api/survey
+Authorization: Bearer {{token}}
+
+### Get Single Survey
+GET http://localhost:8000/api/survey/5ee076c2001a4de900e82549
+Authorization: Bearer {{token}}
+
+### Create Survey
+POST http://localhost:8000/api/survey
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "name": "Deno Course",
+  "description": "We want to understand how much you liked the Deno course"
+}
+
+### Update survey
+PUT http://localhost:8000/api/survey/5edfdfb000f3102800ad0218
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "name": "Deno Course",
+  "description": "We want to understand how much you liked the Deno course"
+}
+
+### Delete the survey
+DELETE  http://localhost:8000/api/survey/5eddbe7900458e0100542d8c
+Authorization: Bearer {{token}}
+
+###############################################
+### QUESIONS
+###############################################
+
+### Get questions for survey
+GET http://localhost:8000/api/survey/5ee076f5005ae40c00e8254a/question
+Authorization: Bearer {{token}}
+
+### Get Single Question
+GET http://localhost:8000/api/question/5ee06942002fed3200c67c60
+Authorization: Bearer {{token}}
+
+### Create question for survey
+POST http://localhost:8000/api/question/5ee076f5005ae40c00e8254a
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "text": "How much you liked the Deno Course?",
+  "type": "choice",
+  "required": true,
+  "data": {
+    "multiple": false,
+    "answers": [
+      "I liked it very much", 
+      "I liked it",
+      "I did not like it",
+      "I hate it"
+    ]
+  }
+}
+
+### Update question
+put http://localhost:8000/api/question/5ee07892001a059c00e8254f
+Content-Type: application/json
+Authorization: Bearer {{token}}
+
+{
+  "text": "To build apps with Flutter, you need to use the Dart programming language. Are you familiar with Dart?",
+  "type": "choice",
+  "required": true,
+  "data": {
+    "multiple": false,
+    "answers": ["Yes", "No"]
+  }
+}
+
+### Get Single Question
+DELETE http://localhost:8000/api/question/5edb363d00d83531007c790c
+Authorization: Bearer {{token}}
+
+
+###############################################
+### ANSWERS
+###############################################
+
+GET http://localhost:8000/api/survey/5edb333700fa6eb4007c7908/question
+Authorization: Bearer {{token}}
