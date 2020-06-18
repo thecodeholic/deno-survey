@@ -4,12 +4,12 @@ import User from "../models/User.ts";
 export const authMiddleware = async (ctx: RouterContext, next: Function) => {
   const headers = ctx.request.headers;
 
-  const authorization = headers.get("Authorization");
-  if (!authorization) {
+  const authHeader = headers.get("Authorization");
+  if (!authHeader) {
     ctx.response.status = 401;
     return;
   }
-  const jwt = authorization.split(" ")[1];
+  const jwt = authHeader.split(" ")[1];
   if (!jwt) {
     ctx.response.status = 401;
     return;

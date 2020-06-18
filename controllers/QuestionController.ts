@@ -1,6 +1,5 @@
 import { RouterContext } from "../deps.ts";
 import Question from "../models/Question.ts";
-import Survey from "../models/Survey.ts";
 import BaseSurveyController from "./BaseSurveyController.ts";
 
 export class QuestionController extends BaseSurveyController {

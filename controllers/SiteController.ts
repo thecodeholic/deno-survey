@@ -42,18 +42,11 @@ export class SiteController {
     console.log(formData);
     for (const question of questions) {
       let value = formData.get(question.id);
-      if (
-        question.type === QuestionType.CHOICE &&
-        question.data.multiple === true
-      ) {
+      if (question.isChoice() && question.data.multiple) {
         value = formData.getAll(question.id);
       }
       if (question.required) {
-        if (
-          question.type === QuestionType.CHOICE &&
-            question.data.multiple &&
-            !value.length || (!value)
-        ) {
+        if (!value || question.isChoice() && question.data.multiple && !value.length) {
           errors[question.id] = "This field is required";
         }
       }
