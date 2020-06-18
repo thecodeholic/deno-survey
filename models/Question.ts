@@ -1,6 +1,4 @@
-import { v4 } from "../deps.ts";
-import Survey from "./Survey.ts";
-import { surveyCollection, questionCollection } from "../mongo.ts";
+import { questionCollection } from "../mongo.ts";
 import BaseModel from "./BaseModel.ts";
 
 export default class Question extends BaseModel {
