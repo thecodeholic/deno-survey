@@ -1,3 +1,3 @@
 .env
 .deno_plugins
-rest.http
+/*.http
