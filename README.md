@@ -1,5 +1,5 @@
 # Deno Survey App
-Survey Application made with Deno 
+Survey application with REST API to manage surveys and questions and website, where all surveys are outputted.
 
 ## Installation
 
